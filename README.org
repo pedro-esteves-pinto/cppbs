@@ -19,7 +19,7 @@ $ ./cppbs/add_lib <lib_name>
 - Adding an application component to a project:
 #+BEGIN_EXAMPLE 
 $ cd <proj_location>/<proj_name>
-$ ./cppbs/add_exe <exe_name>
+$ ./cppbs/add_app <exe_name>
 #+END_EXAMPLE
 * Building
 #+BEGIN_EXAMPLE 
