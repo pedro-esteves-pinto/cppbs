@@ -1,0 +1,11 @@
+/build
+/compile_commands.json
+/.cache/
+/.clangd/
+conanfile.py
+**/*.conan_tools
+**/*.vscode
+/.bak
+/.tmp
+/bak
+/tmp

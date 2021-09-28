@@ -1,0 +1,24 @@
+#!/bin/bash
+DIR="$(dirname "$(readlink -f "$0")")"
+ME="$(basename "$(test -L "$0" && readlink "$0" || echo "$0")")"
+if [ ! -f /.dockerenv ]; then
+    $DIR/execute_in_docker $DIR/$ME $@
+    exit $?
+fi
+
+SRC_ROOT=`realpath $DIR/../`
+BUILD_ROOT=`readlink -f $SRC_ROOT/build`
+
+conan remote add public-conan https://api.bintray.com/conan/bincrafters/public-conan --force
+
+cd $BUILD_ROOT/clang_debug
+conan install --build missing --profile $SRC_ROOT/conan/clang_debug $SRC_ROOT
+
+cd $BUILD_ROOT/clang_release
+conan install --build missing --profile $SRC_ROOT/conan/clang_release $SRC_ROOT
+
+cd $BUILD_ROOT/gcc_debug
+conan install --build missing --profile $SRC_ROOT/conan/gcc_debug $SRC_ROOT
+
+cd $BUILD_ROOT/gcc_release
+conan install --build missing --profile $SRC_ROOT/conan/gcc_release $SRC_ROOT

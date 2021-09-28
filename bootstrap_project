@@ -1,0 +1,37 @@
+#!/bin/bash
+DIR="$(dirname "$(readlink -f "$0")")"
+PROJECT_NAME=$1
+PROJECT_HOME=$2
+SETTINGS=$HOME/.cppbsrc
+
+if [ -f $SETTINGS ]; then
+    source $SETTINGS
+fi
+
+PROJECT_HOME=${PROJECT_HOME:-$HOME}
+PROJECT_LOCATION=$PROJECT_HOME/$PROJECT_NAME
+
+mkdir -p $PROJECT_LOCATION
+cp -r $DIR/template/. $PROJECT_LOCATION
+
+read -d '' PROJECT_SETTINGS << EOF
+PROJECT_NAME=$PROJECT_NAME
+PROJECT_LOCATION=$PROJECT_LOCATION
+EOF
+
+
+echo $PROJECT_SETTINGS > $PROJECT_LOCATION/cppbs/project_settings
+$PROJECT_LOCATION/docker/build_docker
+$PROJECT_LOCATION/cppbs/add_app $PROJECT_NAME
+$PROJECT_LOCATION/cppbs/add_lib $PROJECT_NAME
+
+$PROJECT_LOCATION/tools/setup_builds
+$PROJECT_LOCATION/tools/build
+
+cd $PROJECT_LOCATION
+git init
+git add .
+git commit -m "Inception"
+
+
+

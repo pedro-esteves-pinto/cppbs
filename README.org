@@ -1,0 +1,48 @@
+* Overview
+A simple set of scripts to help bootstrap a non-trivial C++ project on Linux platforms. Uses Docker for tool-chain sand-boxing and Conan for package management.
+* Setup
+- Ensure you have docker installed and permissions to use it. On a recent Ubuntu:
+#+BEGIN_EXAMPLE 
+$ sudo apt install docker.io
+$ sudo usermod -aG docker $USER  # You might need to reboot for this to take effect
+#+END_EXAMPLE
+- Bootstrap a new project: 
+#+BEGIN_EXAMPLE 
+$ ./boostrap_project <proj_name> <proj_location>
+#+END_EXAMPLE
+* Adding and removing components to a project:
+- Adding a library component to a project:
+#+BEGIN_EXAMPLE 
+$ cd <proj_location>/<proj_name>
+$ ./cppbs/add_lib <lib_name>
+#+END_EXAMPLE
+- Adding an application component to a project:
+#+BEGIN_EXAMPLE 
+$ cd <proj_location>/<proj_name>
+$ ./cppbs/add_exe <exe_name>
+#+END_EXAMPLE
+* Building
+#+BEGIN_EXAMPLE 
+$ cd <proj_location>/<proj_name>
+$ ./tools/build
+#+END_EXAMPLE
+* Running
+- To run an executable:  
+#+BEGIN_EXAMPLE 
+$ cd <proj_location>/<proj_name>
+$ ./tools/run <exe_name>
+#+END_EXAMPLE
+* Adding/Removing CPP modules
+- Just create or remove the cpps under src/component_name
+* Adding/Removing external dependencies
+- Edit conanfile.txt at the root of the project
+* Debugging
+- Start a shell inside the tool-chain docker container:
+#+BEGIN_EXAMPLE 
+$ cd <proj_location>/<proj_name>
+$ ./tools/docker_shell
+$ gdb build/gcc_debug/bin/<exe_name>
+#+END_EXAMPLE
+  
+  
+

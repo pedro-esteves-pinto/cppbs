@@ -1,0 +1,42 @@
+#!/bin/bash
+DIR="$(dirname "$(readlink -f "$0")")"
+ME="$(basename "$(test -L "$0" && readlink "$0" || echo "$0")")"
+if [ ! -f /.dockerenv ]; then
+    $DIR/execute_in_docker $DIR/$ME $@
+    exit $?
+fi
+
+SRC_ROOT=`realpath $DIR/../`
+BUILD_ROOT=`readlink -f $SRC_ROOT/build`
+
+mkdir -p $BUILD_ROOT
+rm -rf $BUILD_ROOT/clang_debug
+mkdir -p $BUILD_ROOT/clang_debug
+mkdir -p $BUILD_ROOT/clang_debug/gen_proto
+rm -rf $BUILD_ROOT/clang_release
+mkdir -p $BUILD_ROOT/clang_release
+mkdir -p $BUILD_ROOT/clang_release/gen_proto
+rm -rf $BUILD_ROOT/gcc_debug
+mkdir -p $BUILD_ROOT/gcc_debug
+mkdir -p $BUILD_ROOT/gcc_debug/gen_proto
+rm -rf $BUILD_ROOT/gcc_release
+mkdir -p $BUILD_ROOT/gcc_release
+mkdir -p $BUILD_ROOT/gcc_release/gen_proto
+
+$DIR/refresh_conan
+
+cd $BUILD_ROOT/clang_debug
+cmake -G Ninja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=1  -DCMAKE_CXX_COMPILER=clang++ $SRC_ROOT
+
+cd $BUILD_ROOT/clang_release
+cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_CXX_COMPILER=clang++ $SRC_ROOT
+
+cd $BUILD_ROOT/gcc_debug
+cmake -G Ninja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_CXX_COMPILER=g++ $SRC_ROOT
+
+cd $BUILD_ROOT/gcc_release
+cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_CXX_COMPILER=g++ $SRC_ROOT
+
+rm -f $SRC_ROOT/compile_commands.json
+ln -s $BUILD_ROOT/clang_debug/compile_commands.json $SRC_ROOT/compile_commands.json
+

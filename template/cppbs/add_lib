@@ -1,0 +1,16 @@
+#!/bin/bash
+
+DIR="$(dirname "$(readlink -f "$0")")"
+source $DIR/project_settings
+LIB_NAME=lib$1
+CMAKE=$DIR/../src/$LIB_NAME/CMakeLists.txt
+mkdir -p $DIR/../src/$LIB_NAME
+cp $DIR/CMakeLists_lib_template.cmake $CMAKE
+sed -i s/@lib_name/$LIB_NAME/ $CMAKE
+
+
+read -d '' TESTCPP << EOF
+EOF
+
+echo $TESTCPP > $DIR/../src/$LIB_NAME/$LIBNAME.cpp
+

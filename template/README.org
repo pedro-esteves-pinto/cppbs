@@ -1,0 +1,15 @@
+* Building
+1) Build the docker image:
+  #+BEGIN_EXAMPLE 
+   $ ./docker/build_docker.sh
+  #+END_EXAMPLE
+2) Setup the builds: 
+  #+BEGIN_EXAMPLE 
+   $ ./tools/setup_builds.sh
+  #+END_EXAMPLE
+3) Build: 
+  #+BEGIN_EXAMPLE 
+   $ ./tools/build.sh 
+  #+END_EXAMPLE
+  You can pass gcc or clang for the first argument and debug or
+  release for the second.

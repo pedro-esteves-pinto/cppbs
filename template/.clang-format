@@ -1,0 +1,9 @@
+IndentWidth: 3
+BinPackArguments: true
+BinPackParameters: false 
+AlignAfterOpenBracket: AlwaysBreak
+AlwaysBreakTemplateDeclarations: true
+PenaltyReturnTypeOnItsOwnLine: 140
+---
+Language: Proto
+IndentWidth: 2

@@ -1,0 +1,5 @@
+#!/bin/bash
+DIR="$(dirname "$(readlink -f "$0")")"
+source $DIR/../cppbs/project_settings
+
+(cd $DIR && docker build -t $PROJECT_NAME .)
