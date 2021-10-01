@@ -1,0 +1,17 @@
+#!/bin/bash
+
+DIR="$(dirname "$(readlink -f "$0")")"
+source $DIR/project_settings
+APP_NAME=$1
+CMAKE=$DIR/../src/$APP_NAME/CMakeLists.txt
+mkdir -p $DIR/../src/$APP_NAME
+cp $DIR/CMakeLists_app_template.cmake $CMAKE
+sed -i s/@app_name/$APP_NAME/ $CMAKE
+
+
+read -d '' MAINCPP << EOF
+int main(int  /*unused*/, char** /*unused*/) { return 0; }
+EOF
+
+echo $MAINCPP > $DIR/../src/$APP_NAME/${APP_NAME}_main.cpp
+

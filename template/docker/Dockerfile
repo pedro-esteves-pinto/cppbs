@@ -1,17 +1,17 @@
 FROM ubuntu:hirsute
 
-RUN apt-get update && apt-get -y upgrade
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y software-properties-common
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get upgrade -y
 
-# other build tools
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
 build-essential \
+software-properties-common \
 git \
 gdb \
 cmake \
 python \
 ccache \
 ninja-build \
+pkg-config \
 pip
 
 # newer GCC
@@ -34,9 +34,8 @@ rm -rf /llvm-project && \
 ln -s /usr/local/bin/clang /usr/bin/clang && \
 ln -s /usr/local/bin/clang++ /usr/bin/clang++ 
 
-# install conan
-RUN \
-pip install conan paramiko
+# Conan
+RUN pip install conan paramiko
 
 RUN apt-get clean
 
