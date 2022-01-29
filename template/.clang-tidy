@@ -1,5 +1,5 @@
 ---
-Checks:          '*, -cert-dcl58-cpp,-misc-non-private-member-variables-in-classes, -readability-magic-numbers, -cppcoreguidelines-avoid-magic-numbers, -fuchsia-*,-google-*, -zircon-*,-abseil-*, -modernize-use-trailing-return-type, -misc-no-recursion,-llvm*,-bugprone-exception-escape,-altera*',
+Checks:          '*,-misc-non-private-member-variables-in-classes, -readability-magic-numbers, -cppcoreguidelines-avoid-magic-numbers, -fuchsia-*,-google-*, -zircon-*,-abseil-*, -modernize-use-trailing-return-type, -misc-no-recursion,-llvm*,-bugprone-exception-escape,-altera*'
 WarningsAsErrors: '*'
 HeaderFilterRegex: ''
 FormatStyle:     none

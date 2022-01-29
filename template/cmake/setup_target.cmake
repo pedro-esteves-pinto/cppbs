@@ -4,7 +4,7 @@ include(${CMAKE_SOURCE_DIR}/cmake/safe_dep_glob.cmake)
 function(setup_executable FOR_TARGET TARGET_DEPENDENCIES)
    # get normal sources
    file(GLOB_RECURSE SRCS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.cpp)
-   if (SRCS) 
+   if (${SRCS}) 
      update_deps_file(${SRCS})
    endif()
 
@@ -45,7 +45,7 @@ endfunction()
 function(setup_library FOR_TARGET TARGET_DEPENDENCIES)
    # get normal sources
    file(GLOB_RECURSE SRCS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.cpp)
-   if (SRCS) 
+   if (${SRCS}) 
      update_deps_file(${SRCS})
    endif()
 
