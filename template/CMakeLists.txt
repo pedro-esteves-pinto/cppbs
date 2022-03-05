@@ -11,13 +11,6 @@ set (CMAKE_CXX_FLAGS_DEBUG "${BASE_CXX_FLAGS} \
 set (CMAKE_CXX_FLAGS_RELEASE "${BASE_CXX_FLAGS} \
   -DNDEBUG -O3")
 
-# LTO (This should be set through CMake rather than directly in the
-# compiler command line because of this:
-# https://gitlab.kitware.com/cmake/cmake/-/issues/20818
-if (CMAKE_BUILD_TYPE STREQUAL "Release")
- set(CMAKE_INTERPROCEDURAL_OPTIMIZATION ON)
-endif()
-
 # use ccache when possible
 set(CMAKE_CXX_COMPILER_LAUNCHER ccache)
 
