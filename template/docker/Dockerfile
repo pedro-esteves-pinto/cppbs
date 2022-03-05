@@ -14,6 +14,7 @@ ninja-build \
 pkg-config \
 gcc \
 clang \
+clang-tidy \
 clangd \
 pip
 
