@@ -15,7 +15,7 @@ docker run \
       -h $(hostname)_cpp \
       -e "TZ=America/New_York" \
       --security-opt seccomp=unconfined \
-      -v /var/log/syslog:/var/log/syslog \
+      -v /var:/var \
       -v /usr/local/share/fonts:/usr/local/share/fonts \
       -v /usr/share/fonts:/usr/share/fonts \
       -v /run/user/:/run/user/ \
