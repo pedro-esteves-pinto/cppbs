@@ -1,29 +1,32 @@
 #!/bin/bash
-
 DIR="$(dirname "$(readlink -f "$0")")"
+SRC_ROOT=$DIR/..
+CMD=$@
 source $DIR/../cppbs/project_settings
 
-docker run \
+read -d '' podman_cmd << EOF
+podman run \
       --rm \
       --net host \
-      -h $(hostname)_cpp \
+      --userns=keep-id \
+      -h $(hostname)_podman \
       -e "TZ=America/New_York" \
       --security-opt seccomp=unconfined \
+      --privileged \
       -v /var:/var \
-      -v /usr/local/share/fonts:/usr/local/share/fonts \
-      -v /usr/share/fonts:/usr/share/fonts \
       -v /run/user/:/run/user/ \
       -v /tmp:/tmp \
-      -v /etc/group:/etc/group \
-      -v /etc/passwd:/etc/passwd \
-      -v /tmp:/tmp \
-      -v /etc/sudoers:/etc/sudoers \
       -v /home:/home \
       --shm-size=4024m \
-      -w $PWD \
-      -u $UID \
+      -w $SRC_ROOT \
       -t \
-      -i \
       -e DISPLAY=$DISPLAY \
-      $PROJECT_NAME \
-      /bin/bash 
+    $PROJECT_NAME 
+EOF
+
+if [ "$container" = "podman" ]; then 
+    $CMD
+else 
+    $podman_cmd $CMD
+fi
+

@@ -1,10 +1,9 @@
 * Overview
-A simple set of scripts to help bootstrap a non-trivial C++ project on Linux platforms. Uses Docker for tool-chain sand-boxing and Conan for package management.
+A simple set of scripts to help bootstrap a non-trivial C++ project on Linux platforms. Uses podman for tool-chain sand-boxing and Conan for package management. Sets up release and debug builds for gcc and clang.
 * Setup
-- Ensure you have docker installed and permissions to use it. On a recent Ubuntu:
+- Ensure you have podman installed. On a recent Ubuntu:
 #+BEGIN_EXAMPLE 
-$ sudo apt install docker.io
-$ sudo usermod -aG docker $USER  # You might need to reboot for this to take effect
+$ sudo apt install podman
 #+END_EXAMPLE
 - Bootstrap a new project: 
 #+BEGIN_EXAMPLE 
@@ -37,10 +36,10 @@ $ ./tools/run <exe_name>
 * Adding/Removing external dependencies
 - Edit conanfile.txt at the root of the project
 * Debugging
-- Start a shell inside the tool-chain docker container:
+- Start a shell inside the tool-chain podman container:
 #+BEGIN_EXAMPLE 
 $ cd <proj_location>/<proj_name>
-$ ./tools/docker_shell
+$ ./tools/podman_shell
 $ gdb build/gcc_debug/bin/<exe_name>
 #+END_EXAMPLE
   

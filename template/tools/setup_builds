@@ -1,8 +1,9 @@
 #!/bin/bash
 DIR="$(dirname "$(readlink -f "$0")")"
 ME="$(basename "$(test -L "$0" && readlink "$0" || echo "$0")")"
-if [ ! -f /.dockerenv ]; then
-    $DIR/execute_in_docker $DIR/$ME $@
+
+if [ "$container" != "podman" ]; then 
+    $DIR/execute_in_podman $DIR/$ME $@
     exit $?
 fi
 

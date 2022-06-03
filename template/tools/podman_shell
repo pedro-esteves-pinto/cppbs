@@ -1,24 +1,21 @@
 #!/bin/bash
+
 DIR="$(dirname "$(readlink -f "$0")")"
-SRC_ROOT=$DIR/..
 source $DIR/../cppbs/project_settings
 
 podman run \
       --rm \
       --net host \
-      -e "TZ=America/New_York" \
       --userns=keep-id \
-      -h $(hostname)_cppbs \
+      -h $(hostname)_cppbs\
+      -e "TZ=America/New_York" \
       --security-opt seccomp=unconfined \
       --privileged \
       -v /var:/var \
       -v /tmp:/tmp \
       -v /home:/home \
       --shm-size=4024m \
-      -w $SRC_ROOT \
-      -t \
+      -it \
       -e DISPLAY=$DISPLAY \
       $PROJECT_NAME \
-      clangd $@ 
-
-
+      /bin/bash 

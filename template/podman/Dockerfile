@@ -1,4 +1,4 @@
-FROM ubuntu:impish
+FROM ubuntu:jammy
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get upgrade -y
 
@@ -20,9 +20,6 @@ pip
 
 # Conan
 RUN pip install conan paramiko
-
 RUN apt-get clean
 
-ENV TZ=America/New_York
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
