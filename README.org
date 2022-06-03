@@ -7,38 +7,38 @@ $ sudo apt install podman
 #+END_EXAMPLE
 - Bootstrap a new project: 
 #+BEGIN_EXAMPLE 
-$ ./boostrap_project <proj_name> <proj_location>
+$ ./boostrap_project <proj_name> <project_path>
 #+END_EXAMPLE
-* Adding and removing components to a project:
+* Adding and removing components from a project:
 - Adding a library component to a project:
 #+BEGIN_EXAMPLE 
-$ cd <proj_location>/<proj_name>
+$ cd <project_path>/<proj_name>
 $ ./cppbs/add_lib <lib_name>
 #+END_EXAMPLE
 - Adding an application component to a project:
 #+BEGIN_EXAMPLE 
-$ cd <proj_location>/<proj_name>
+$ cd <project_path>/<proj_name>
 $ ./cppbs/add_app <exe_name>
 #+END_EXAMPLE
 * Building
 #+BEGIN_EXAMPLE 
-$ cd <proj_location>/<proj_name>
+$ cd <project_path>/<proj_name>
 $ ./tools/build
 #+END_EXAMPLE
 * Running
 - To run an executable:  
 #+BEGIN_EXAMPLE 
-$ cd <proj_location>/<proj_name>
+$ cd <project_path>/<proj_name>
 $ ./tools/run <exe_name>
 #+END_EXAMPLE
 * Adding/Removing CPP modules
-- Just create or remove the cpps under src/component_name
+- Just create or remove the cpps under src/component_name. CMake will pick up all cpp files and include them in the component build.
 * Adding/Removing external dependencies
 - Edit conanfile.txt at the root of the project
 * Debugging
 - Start a shell inside the tool-chain podman container:
 #+BEGIN_EXAMPLE 
-$ cd <proj_location>/<proj_name>
+$ cd <project_path>/<proj_name>
 $ ./tools/podman_shell
 $ gdb build/gcc_debug/bin/<exe_name>
 #+END_EXAMPLE
